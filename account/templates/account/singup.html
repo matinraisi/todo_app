@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    singup
+{% endblock %}
+
+
+{% block content %}
+    
+<div class="list-container">
+    <div class="singup">
+        <form method ="POST">
+            {% csrf_token %}
+            {{form}}
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary">singpu </button>
+        </form>
+        
+    </div>
+
+</div>
+
+{% endblock  %}

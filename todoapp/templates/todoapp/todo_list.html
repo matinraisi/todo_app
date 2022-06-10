@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    login
+{% endblock %}
+
+
+{% block content %}
+
+<div class="list-container">
+    {% if todo_list_len == 0 %}
+      <div>
+        <h1>nothing is here.....</h1>
+        <a href="{% url 'todoapp:creat_todo' %}">you can add a job to do here</a>
+      </div>
+         {% else %}
+   
+         <div class="todo-list-container">
+          <form method="POST" action="{% url 'todoapp:todo_list' %}" id='todo-list-form'>
+            <div class="todo-list">
+              <ul class="list-group">
+                {% for todoitem in todolist %}
+                <li class="list-group-item todo-item">
+                  <div class="todo-item-content">
+                          {% if todoitem.checked %}
+                          <input class="check-input form-check-input job-done-input"  type="checkbox" name='checked' checked value="{{todoitem.id}}" aria-label="...">
+                          <div class="job-done-text job-text">
+                            <h6>{{todoitem.work}}</h6>
+                            <p>{{todoitem.date}}</p>
+                          </div>
+                          {% else %}
+                          <input class="check-input form-check-input " type="checkbox"  name='checked' value="{{todoitem.id}}" aria-label="...">
+                          <div class="job-undone-text job-text">
+                            <h6>{{todoitem.work}}</h6>
+                            <p>{{todoitem.date}}</p>
+                          </div>
+                          {% endif %}
+                        </div>
+                        <div class="todo-item-action">
+                          <a class='btn btn-danger' href="{% url 'todoapp:delete_item' todoitem.id %}"><i class="fal fa-minus-circle"></i></i></a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                    <a class='btn btn-light' href="/create"><i class="bi bi-plus"></i> add new work</a>
+              </ul>
+            </div>
+                {% csrf_token %}
+                <button class='btn btn-primary' id='print-paper'><i class="bi bi-printer-fill"></i></button>
+          </form>
+        </div>
+        {% endif %}
+
+
+
+
+    </div>
+
+
+
+{% endblock  %}
